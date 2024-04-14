@@ -1,0 +1,48 @@
+-- Quartus Prime VHDL Template
+-- Unsigned Adder/Subtractor
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity LU is
+
+	port 
+	(
+		A		: in unsigned (3 downto 0);
+		B		: in unsigned (3 downto 0);
+		SEL	: in unsigned (3 downto 0);
+		Y	: out unsigned (3 downto 0)	
+	);
+
+end entity;
+
+
+architecture rtl of LU is
+	SIGNAL TEMP: unsigned (7 DOWNTO 0);
+begin
+	process(A,B,SEL) --a,b,SEL are  sensivity lists(when one of them changed processes triggered)
+	begin
+		-- add if "add_sub" is 1, else subtract
+
+		if (SEL = "1000") then
+			Y <= NOT A;
+		elsif (SEL = "1001") then
+			Y <= NOT B;
+		elsif (SEL = "1010") then
+			Y <= A AND B;
+		elsif (SEL = "1011") then
+			Y <= A OR B;
+		elsif (SEL = "1100") then
+			Y <= A XNOR B;
+		elsif (SEL = "1101") then
+			Y <= A XOR B;
+		elsif (SEL = "1110") then
+			Y <= A NOR B;
+		elsif (SEL = "1111") then
+			Y <= A NAND B;
+		end if;
+		
+	end process;
+
+end rtl;
